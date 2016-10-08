@@ -10,6 +10,9 @@ import org.fundacionjala.dashboard.ui.pages.sidebar.SideBar;
  */
 public class BoardsHooks {
 
+    /**
+     * Method that delete all the existent boards on MACH2
+     */
     @Before("@deleteAllBoards")
     public void deleteAllBoards(){
         SideBar sideBar = new TopMenu().clickGeneralMenu();

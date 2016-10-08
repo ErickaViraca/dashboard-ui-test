@@ -15,13 +15,19 @@ import java.util.List;
  */
 public class MyDashboard extends AbstractBasePage {
 
-    @FindBy(xpath = "//span[contains(.,'My Dashboard')]")
-    //@FindBy(css = "div[data-group-id='5jy9BtiPQDMHCAjhc'] > div[class='menu ui-sortable']")
+    //@FindBy(xpath = "//span[contains(.,'My Dashboard')]")
+    @FindBy(css = "div[data-group-id='5jy9BtiPQDMHCAjhc'] > div[class='menu ui-sortable']")
     private WebElement boardsList;
 
     @FindBy(xpath = "//div[@class='truncated text item title' and text()='")
     private WebElement boardBase;
 
+    /**
+     * Makes rigth click to an specific board.
+     *
+     * @param board WebElement with a specific board.
+     * @return a new BoardOption.
+     */
     public BoardOption rightClickBoardCard(final WebElement board) {
         WebElement boardName = board.findElement(By.className("inline-edit"));
         Action action = new Actions(driver)
@@ -30,6 +36,9 @@ public class MyDashboard extends AbstractBasePage {
         return new BoardOption();
     }
 
+    /**
+     * Deletes all boards of the MACH2.
+     */
     public void deleteAllBoards() {
         List<WebElement> allFormChildElements = boardsList.findElements(By.tagName("a"));
         for (WebElement element : allFormChildElements) {
