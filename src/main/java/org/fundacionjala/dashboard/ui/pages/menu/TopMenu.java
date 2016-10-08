@@ -1,5 +1,6 @@
 package org.fundacionjala.dashboard.ui.pages.menu;
 
+import org.fundacionjala.dashboard.ui.pages.sidebar.SideBar;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
@@ -19,6 +20,9 @@ public class TopMenu extends AbstractBasePage {
 
     @FindBy(css = "div.menu.transition.visible > a[class=\"item\"][href=\"/logout\"]")
     private WebElement logOutButton;
+
+    @FindBy(xpath = "//a[@data-action='show-main-menu']")
+    private WebElement generalMenu;
 
     @FindBy(css = "div.menu.transition.visible > a[class=\"item\"][href=\"/profile\"]")
     private WebElement profileButton;
@@ -45,6 +49,16 @@ public class TopMenu extends AbstractBasePage {
         clickUserMenu();
         profileButton.click();
         return new Profile();
+    }
+
+    /**
+     * Method to perform a click on Profile menu.
+     *
+     * @return The general menu.
+     */
+    public SideBar clickGeneralMenu() {
+        generalMenu.click();
+        return new SideBar();
     }
 
     public BoardPage clickAddBoardMenu() {

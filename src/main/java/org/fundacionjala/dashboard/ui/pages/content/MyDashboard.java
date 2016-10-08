@@ -15,29 +15,27 @@ import java.util.List;
  */
 public class MyDashboard extends AbstractBasePage {
 
+    @FindBy(xpath = "//span[contains(.,'My Dashboard')]")
+    //@FindBy(css = "div[data-group-id='5jy9BtiPQDMHCAjhc'] > div[class='menu ui-sortable']")
+    private WebElement boardsList;
+
     @FindBy(xpath = "//div[@class='truncated text item title' and text()='")
     private WebElement boardBase;
 
-    public BoardOption rightClickBoardCard(final String boardName) {
-        driver.findElement(By.xpath("//div[@class='truncated text item title' and text()='" + boardName + "']"));
+    public BoardOption rightClickBoardCard(final WebElement board) {
+        WebElement boardName = board.findElement(By.className("inline-edit"));
         Action action = new Actions(driver)
-                .doubleClick().build(); //method to get the RigthClick()
+                .contextClick(boardName).build();
         action.perform();
         return new BoardOption();
     }
 
     public void deleteAllBoards() {
-        WebElement formElement = driver.findElement(By.cssSelector("div.menu.ui-sortable"));
-        List<WebElement> allFormChildElements = formElement.findElements(By.cssSelector("span.inline-edit"));
-        for (int i = 0; i < allFormChildElements.size() ; i ++) {
-            BoardOption boardOption = rightClickBoardCard(allFormChildElements.get(i).getText());
+        List<WebElement> allFormChildElements = boardsList.findElements(By.tagName("a"));
+        for (WebElement element : allFormChildElements) {
+            BoardOption boardOption = rightClickBoardCard(element);
             boardOption.deleteBoardMach();
         }
-    }
-
-    public void deleteSpecificBoard(final String boardName) {
-            BoardOption boardOption = rightClickBoardCard(boardName);
-            boardOption.deleteBoardMach();
     }
 
 }
